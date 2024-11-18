@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Профиль Абитуриента</title>
+    <style>
+    .avatar-preview {
+      margin-top: 10px; /* Space above the avatar preview */
+      width: 80%; /* Set width to 80% of the original size */
+      height: auto; /* Maintain aspect ratio */
+      display: none; /* Initially hidden */
+    }
+    /* Custom styles for the toggle switch */
+/* Custom styles for the toggle switch */
+.dot {
+  left: 1px;
+  top: 0.5px;
+  transition: all 0.3s;
+}
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #4caf50; /* Change color when checked */
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #4CAF50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+  </style>
+</head>
+<body class="bg-white p-5">
+  <a href="index.html" class="absolute top-4 left-4 flex items-center text-green-500 hover:text-green-600 transition duration-200">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+    <span class="text-sm font-semibold">Назад</span>
+</a>
+
+<div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-center">Профиль студента</h2>
+  <div class="flex items-center justify-center mb-2"> <!-- Changed mt-6 to mt-2 -->
+      <span class="mr-2">Уже поступил:</span>
+      <label class="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" id="toggleSwitch" class="sr-only" onchange="redirectToPage()">
+          <div class="w-11 h-6 bg-gray-200 rounded-full shadow-inner"></div>
+          <div class="dot absolute w-5 h-5 bg-white rounded-full shadow transition transform duration-300 ease-in-out"></div>
+      </label>
+  </div>
+  
+
+    <form id="profileForm">
+      <div class="mb-4">
+        <label for="avatar" class="block text-sm font-semibold mb-1">Загрузите аватар:</label>
+        <input type="file" id="avatar" name="avatar" accept="image/*" required class="w-full border border-gray-300 rounded-md p-2">
+        <canvas id="canvas" class="canvas-container hidden"></canvas>
+        <img id="avatarPreview" class="avatar-preview mt-2 rounded-full hidden" alt="Avatar Preview">
+    </div>
+    <div class="mb-4">
+            <label for="first_name" class="block text-sm font-semibold mb-1">Имя:</label>
+            <input type="text" id="first_name" name="first_name" placeholder="Введите ваше имя" required class="w-full border border-gray-300 rounded-md p-2">
+        </div>
+        <div class="mb-4">
+            <label for="last_name" class="block text-sm font-semibold mb-1">Фамилия:</label>
+            <input type="text" id="last_name" name="last_name" placeholder="Введите вашу фамилию" required class="w-full border border-gray-300 rounded-md p-2">
+        </div>
+        <div class="mb-4">
+            <label for="age" class="block text-sm font-semibold mb-1">Возраст:</label>
+            <input type="number" id="age" name="age" placeholder="Введите ваш возраст" required min="0" class="w-full border border-gray-300 rounded-md p-2">
+        </div>
+        <div class="mb-4">
+            <label for="sex" class="block text-sm font-semibold mb-1">Пол:</label>
+            <select id="sex" name="sex" required class="w-full border border-gray-300 rounded-md p-2">
+                <option value="">Выберите</option>
+                <option value="male">Мужской</option>
+                <option value="female">Женский</option>
+            </select>
+        </div>
+        <div class="mb-4 flex items-center">
+            <input type="checkbox" id="is_parent" name="is_parent" class="mr-2">
+            <label for="is_parent" class="text-sm font-semibold">Вы родитель студента?</label>
+        </div>
+        <div class="mb-4">
+            <label for="uni" class="block text-sm font-semibold mb-1">Учебное заведение:</label>
+            <input type="text" id="uni" name="uni" placeholder="Введите ваше учебное заведение" required class="w-full border border-gray-300 rounded-md p-2">
+        </div>
+        <div class="mb-4">
+          <label for="uni_course" class="block text-sm font-semibold mb-1">Курс:</label>
+          <select id="uni_course" name="uni_course" required class="w-full border border-gray-300 rounded-md p-2">
+              <option value="">Выберите курс</option>
+              <option value="1">Курс 1</option>
+              <option value="2">Курс 2</option>
+              <option value="3">Курс 3</option>
+              <option value="4">Курс 4</option>
+              <option value="5">Курс 5</option>
+              <option value="m1">Магистратура 1</option>
+              <option value="m2">Магистратура 2</option>
+          </select>
+      </div>
+      
+        <div class="mb-4">
+            <label for="program_code" class="block text-sm font-semibold mb-1">Код программы:</label>
+            <input type="text" id="program_code" name="program_code" placeholder="Введите код программы" required class="w-full border border-gray-300 rounded-md p-2">
+        </div>
+        <div class="mb-4">
+            <label for="price_range" class="block text-sm font-semibold mb-1">Диапазон цены:</label>
+            <div>
+                <span>Минимум: <span id="minValue">10000</span></span><br/>
+                <span>Максимум: <span id="maxValue">15000</span></span>
+            </div>
+            <div class="flex justify-between">
+                <input type="range" id="price_min" name="price_min" min="0" max="100000" value="10000" step="5000" class="w-full mx-1">
+                <input type="range" id="price_max" name="price_max" min="0" max="100000" value="15000" step="5000" class="w-full mx-1">
+            </div>
+        </div>
+        <button type="submit" class="w-full bg-green-500 text-white font-semibold py-2 rounded-md hover:bg-green-600 transition duration-200">Сохранить</button>
+    </form>
+</div>
+
+<script>
+  const priceMin = document.getElementById('price_min');
+  const priceMax = document.getElementById('price_max');
+  const minValue = document.getElementById('minValue');
+  const maxValue = document.getElementById('maxValue');
+  const avatarInput = document.getElementById('avatar');
+  const avatarPreview = document.getElementById('avatarPreview');
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+
+  priceMin.addEventListener('input', function() {
+      minValue.textContent = priceMin.value;
+      if (parseInt(priceMin.value) >= parseInt(priceMax.value)) {
+          priceMax.value = parseInt(priceMin.value) + 1; // Ensure max is always greater than min
+          maxValue.textContent = priceMax.value;
+      }
+  });
+
+  priceMax.addEventListener('input', function() {
+      maxValue.textContent = priceMax.value;
+      if (parseInt(priceMax.value) <= parseInt(priceMin.value)) {
+          priceMin.value = parseInt(priceMax.value) - 1; // Ensure min is always less than max
+          minValue.textContent = priceMin.value;
+      }
+  });
+
+  avatarInput.addEventListener('change', function() {
+      const file = avatarInput.files[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+              const img = new Image();
+              img.onload = function() {
+                  // Set canvas dimensions to a square
+                  const size = Math.min(img.width, img.height);
+                  canvas.width = size;
+                  canvas.height = size;
+
+                  // Draw the image cropped to a square
+                  ctx.drawImage(img, (img.width - size) / 2, (img.height - size) / 2, size, size, 0, 0, size, size);
+                  
+                  // Set the avatar preview to the cropped image
+                  avatarPreview.src = canvas.toDataURL();
+                  avatarPreview.style.display = 'block'; // Show the cropped image
+              }
+              img.src = e.target.result; // Set the image source to the uploaded file
+          }
+          reader.readAsDataURL(file); // Read the file as a data URL
+        }
+      });
+</script>
+</body>
+</html>

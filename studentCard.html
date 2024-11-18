@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Профиль студента</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .university {
+            word-wrap: break-word; /* Allow long words to break */
+            overflow-wrap: break-word; /* Ensure long text wraps */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+<div class="bg-white h-full flex flex-col items-center justify-start p-6">
+    <img src="avatar.jpg" alt="Avatar" class="w-24 h-24 rounded-full border-4 border-green-500 mb-4 mt-4">
+    <h2 class="text-xl font-bold text-gray-800">Коблев Дамир</h2>
+    <p class="text-gray-600">Возраст: <span class="font-semibold">20</span></p>
+    <p class="text-gray-600">Пол: <span class="font-semibold">Мужской</span></p>
+    <p class="text-gray-600 university">Обучается в:</p>
+    <p class="text-gray-600 university" style="text-align: center;"><span class="font-semibold">Кубанский Государственный Университет</span></p>
+    <p class="text-gray-600">Курс: <span class="font-semibold">3</span></p>
+    <p class="text-gray-600">Код программы: <span class="font-semibold">02.03.03</span></p>
+    <p class="text-gray-600">Профиль управляется студентом: <span class="font-semibold">Да</span></p>
+
+    <div class="mt-4 p-4 bg-blue-50 border-l-4 border-blue-500 rounded w-full">
+        <p class="text-blue-800">Минимум: <span class="font-semibold">10000₽/мес.</span></p>
+        <p class="text-blue-800">Максимум: <span class="font-semibold">15000₽/мес.</span></p>
+    </div>
+
+    <div class="mt-auto mb-4 w-full">
+        <a href="#" class="block w-full bg-blue-600 text-white text-center py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-200">
+            Связаться
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
